@@ -88,15 +88,15 @@ function index() {
   }
 
   const showHiddenPassword = async () => {
-    if (pass == false) {
-      setPass(true);
-      setPassIcon("eye-off");
-  }
+  //   if (pass == false) {
+  //     setPass(true);
+  //     setPassIcon("eye-off");
+  // }
 
-  if (pass == true) {
-      setPass(false);
-      setPassIcon("eye");
-  }
+  // if (pass == true) {
+  //     setPass(false);
+  //     setPassIcon("eye");
+  // }
 
   }
   return ( 
