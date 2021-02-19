@@ -4,46 +4,39 @@ import { HelperText, TextInput, Button, Title } from 'react-native-paper'
 // import { Icon } from 'react-native-vector-icons/SimpleLineIcons';
 import LandingAuthPhone from '../../../images/landing-authPhone';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
 export default function authPhone() {
     const [id, setId] = useState("");
+    const state = useSelector((state) => state);
+    const [phone_number, setPhone_number] = useState("");
 
-    useEffect(() => {
-      AsyncStorage.getItem('id')
-      .the(setId(id))
-    })
+  const submit = async () => {
+    const urlq = "https://mr-trash.herokuapp.com/api/";
+    const data = { 
+      ...state,
+      phone_number,
+    }
 
-    const submit = async () => {
-      const urlq = 'https://mr-trash.herokuapp.com/api/'
-      const data = {
-        name,
-        email,
-        password,
-        password_confirmation,
-        role:"nasabah",
-      }
-      const bebas = new FormData();
+    // axios.post(urlq + "register", JSON.stringify(data))
+    const bebas = new FormData();
       for (var key in data) {
           bebas.append(key, data[key]);
       }
-      axios({
-        method: 'Get',
-        url: urlq + "useraja/" + id,
-        data: bebas
-      })
-      // fetch(urlq + "register", {
-      //   method: "Post",
-      //   body: bebas
-      // })
-      // .then(apaya => {return apaya.json()})  //-----------------> khusus fetch
-      .then(res => {
-        console.log("POST RESPONSE: ", res.data.user.id);
+      console.log(bebas);
+    axios({
+      method: 'Post',
+      url: urlq + "register",
+      data: bebas
     })
-      .catch(e => {console.log('respones: ', e)});
-      navigation.navigate("AuthPhone");
-      // showSnackbar({ message: "Rekening berhasil disimpan!" })
+    // fetch(urlq + "register", {method: "Post", body: bebas})
+    .then(res => res.json())
+    .then(log => {console.log("log :", log)})
+    .catch((e) => {console.log('Error: ', e)})
+    
   }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.img}>
@@ -58,6 +51,8 @@ export default function authPhone() {
           textAlign="center"
           placeholder="08906867"
           keyboardType="Phone-pad"
+          value={phone_number}
+          onChangeText={value => {setPhone_number(value)}}
           />
         <HelperText/>
         </View>
@@ -69,7 +64,7 @@ export default function authPhone() {
             style={styles.button}
             labelStyle={{ color: '#000000' }}
             contentStyle={styles.btnSize}
-            onPress={() => {}}
+            onPress={submit}
             >
               Lanjut
             </Button>
@@ -94,6 +89,7 @@ export default function authPhone() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F2F2F2'
   },
   actionContainer: {
     justifyContent: "center",

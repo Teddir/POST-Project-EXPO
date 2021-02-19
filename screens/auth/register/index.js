@@ -6,6 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import LandingRegister from '../../../images/landing-register';
 import axios from 'axios';
 import { useSnackbar } from '../../../components/SnackbarProvider';
+import { useSelector, useDispatch } from 'react-redux';
 
 function index() {
   
@@ -20,83 +21,91 @@ function index() {
   const [password_confirmation, setpassword_confirmation] = useState("");
   const [disable, setDisable] = useState(false);
   const [submitting, setSubmitting] = useState(false);
-  // const { showSnackbar } = useSnackbar();
 
+  // const validate = async () => {
+  //   let newErrros = {}
 
-  const validate = async () => {
-    let newErrros = {}
-
-    if (!data.name) {
-      newErrros.name = "Nama bisnis wajib diisi"; 
-    } else if (data.name.length < 5) {
-      newErrros.email = "Nama bisnis minimal 5 karakter";
-    } 
+  //   if (!data.name) {
+  //     newErrros.name = "Nama bisnis wajib diisi"; 
+  //   } else if (data.name.length < 5) {
+  //     newErrros.email = "Nama bisnis minimal 5 karakter";
+  //   } 
     
-    if (!data.email) {
-      newErrros.email = "Email wajib diisi";
-    }  
+  //   if (!data.email) {
+  //     newErrros.email = "Email wajib diisi";
+  //   }  
     
-    if (!data.password) {
-      newErrros.password = "Password wajib diisi";
-    } else if (data.password.length > 8) {
-      newErrros.email = "Password minimal 8 karakter";
-    } 
+  //   if (!data.password) {
+  //     newErrros.password = "Password wajib diisi";
+  //   } else if (data.password.length > 8) {
+  //     newErrros.email = "Password minimal 8 karakter";
+  //   } 
     
-    if (!data.password_confirmation) {
-      newErrros.password_confirmation = "Password confirmation wajib diisi";
-    } else if (!data.password_confirmation !== data.password) {
-      newErrros.password_confirmation = "Password wajib sama";
-    }
+  //   if (!data.password_confirmation) {
+  //     newErrros.password_confirmation = "Password confirmation wajib diisi";
+  //   } else if (!data.password_confirmation !== data.password) {
+  //     newErrros.password_confirmation = "Password wajib sama";
+  //   }
 
-    return newErrros;
-  }
+  //   return newErrros;
+  // }
 
-  const getData = async () => {
-    
-  }  
 
+  // const state = useSelector((state)=> state);
+  
+  const action = useDispatch();
   const submit = async () => {
-      const urlq = 'https://mr-trash.herokuapp.com/api/'
-      const data = {
-        name,
-        email,
+      action({ type:"ADD_DATA", payload:{
+        name, 
+        email, 
         password,
+        role:'Nasabah',
         password_confirmation,
-        role:"nasabah",
-      }
-      const bebas = new FormData();
-      for (var key in data) {
-          bebas.append(key, data[key]);
-      }
-      axios({
-        method: 'Post',
-        url: urlq + "register",
-        data: bebas
-      })
-      // fetch(urlq + "register", {
-      //   method: "Post",
-      //   body: bebas
-      // })
-      // .then(apaya => {return apaya.json()})  //-----------------> khusus fetch
-      .then(res => {
-        AsyncStorage.setItem('id', res.data.user.id.toString())
-        console.log("POST RESPONSE: ", res.data.token);
-    })
-      .catch(e => {console.log('respones: ', e)});
+      }})
+
       navigation.navigate("AuthPhone");
-      // showSnackbar({ message: "Rekening berhasil disimpan!" })
+
+
   }
+
+  // const submit = async () => {
+      // const urlq = 'https://mr-trash.herokuapp.com/api/'
+  //     const data = {
+  //       name,
+  //       email,
+  //       password,
+  //       password_confirmation,
+  //       role:"nasabah",
+  //     }
+      // const bebas = new FormData();
+      // for (var key in data) {
+      //     bebas.append(key, data[key]);
+      // }
+      // axios({
+      //   method: 'Post',
+      //   url: urlq + "register",
+      //   data: bebas
+      // })
+
+  //     .then(res => {
+  //       AsyncStorage.setItem('id', res.data.user.id.toString())
+  //       console.log("POST RESPONSE: ", res.data.token);
+  //   })
+  //     .catch(e => {console.log('respones: ', e)});
+  //     navigation.navigate("AuthPhone");
+  //     // showSnackbar({ message: "Rekening berhasil disimpan!" })
+  // }
 
   const showHiddenPassword = async () => {
-  //   if (pass == false) {
-  //     setPass(true);
-  //     setPassIcon("eye-off");
-  // }
+    if (pass == false) {
+        setPass(true);
+        setPassIcon("eye-off");
+    }
 
-  // if (pass == true) {
-  //     setPass(false);
-  //     setPassIcon("eye");
-  // }
+    if (pass == true) {
+        setPass(false);
+        setPassIcon("eye");
+    }
 
   }
   return ( 
@@ -124,6 +133,7 @@ function index() {
               left={<TextInput.Icon style={{ marginRight: 10, }} size={20} name="email" color="#00003050" />}
               // error={error}
               label="Email"
+              keyboardType="email-address"
               mode="outlined"
               textAlign="center"
               value={email}
@@ -185,6 +195,7 @@ const styles = StyleSheet.create({
   
   container: {
     flex: 1,
+    backgroundColor: '#F2F2F2'
   },
   actionContainer: {
     flex: 1,

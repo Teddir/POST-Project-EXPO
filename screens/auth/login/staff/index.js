@@ -1,10 +1,32 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { View, Text, StyleSheet } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { ChangeToken } from '../../../../src/redux/action';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function index() {
+
+    const [email, setEmail] = useState("");
+    const [phone_number, setPhone_number] = useState("");
+    const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+
+  const handSubmit = () => {
+      const input = { 
+        email: email,
+        password: password, 
+      }
+      console.log(input);
+      
+      axios
+      .post("https://mr-trash.herokuapp.com/api/login", input)
+      .then(res => {dispatch(ChangeToken(res.data.token))})
+      .then(res => {console.log("Respones: ", res)})
+      .catch(e => {console.log("Error: ", e)})
+  }
 
   const navigation = useNavigation();
 
@@ -18,12 +40,16 @@ function index() {
                 mode="outlined"
                 label="Email / No.Hp"
                 textAlign="center"
+                value={email}
+                onChangeText={value => {setEmail(value)}}
                 style={{marginBottom: 12,}}
             />
             <TextInput 
                 mode="outlined"
                 label="Password"
                 textAlign="center"
+                value={password}
+                onChangeText={value => {setPassword(value)}}
             />
             <Text 
               style={styles.btnForget}
@@ -39,7 +65,7 @@ function index() {
           style={styles.button}
           labelStyle={{ color: '#000000' }}
           contentStyle={styles.btnSize}
-          onPress={() => {}}
+          onPress={handSubmit}
           >
             Masuk
           </Button>

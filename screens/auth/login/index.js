@@ -63,18 +63,20 @@ function index() {
 }
 
 const styles = StyleSheet.create({
+  
   container: {
     flex: 1,
-    margin: 30,
-    justifyContent: "center",
+    backgroundColor: "#F2F2F2"
   },
   header: {
-    margin: 10,
+    marginTop: 30,
+    marginLeft: 30,
+    justifyContent: "flex-start",
   },
   textHeader: {
     fontSize: 30,
     fontStyle: 'italic',
-    marginBottom: 12,
+    marginBottom: 1,
     fontWeight: "bold"
   },
   textHeaderChild: {
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
     color: "blue",
   },
   btn: {
-    flex: 1,
+    margin: 20,
   },
   button: {
     margin: 14,
