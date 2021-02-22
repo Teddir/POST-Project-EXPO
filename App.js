@@ -1,19 +1,21 @@
+import React from 'react';
 import 'react-native-gesture-handler';
-import * as React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Portal, Provider as ThemeProvider } from 'react-native-paper';
+import { Portal } from 'react-native-paper';
 import { Provider } from 'react-redux';
+
+import AppRouter from './src/router/AppRouter';
 import Store from './src/redux/store';
 
-import Navigator from './Navigator'
 
-export default function App() {
+const App = () => {
   return (
     <Provider store = { Store }>
       <Portal.Host>
-        <Navigator />
+        <AppRouter />
       </Portal.Host>
     </Provider>
   );
-}
+};
+
+export default App;
 

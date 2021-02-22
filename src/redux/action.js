@@ -1,11 +1,28 @@
-import { storeToken } from '../service';
+import { storeToken, removeToken } from '../service/storage/Token';
 
-const ChangeToken = (data) => {
-    data ? storeToken(data) : null;
-    return {
-      type: 'CHAGE/TOKEN',
-      data: data
-    }
-} 
+const changeToken = (data) => {
+  data ? storeToken(data) : null;
+  console.log('storing to redux')
+  return {
+    type: 'CHAGE',
+    data: data
+  };
+};
 
-export default ChangeToken;
+const clearToken = () => {
+  removeToken();
+  return {
+    type: 'CLEAR',
+  };
+};
+
+const setUser = (user) => {
+  return {
+    type: 'SET_ID',
+    data: user
+  };
+};
+
+
+
+export {changeToken, storeToken, setUser, clearToken};

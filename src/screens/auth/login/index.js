@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button, TextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 
-import IconStaff from '../../../images/icon-staff';
-import IconKasir from '../../../images/icon-kasir';
+import IconStaff from '../../../../images/icon-staff';
+import IconKasir from '../../../../images/icon-kasir';
 import axios from 'axios';
 
 function index() {

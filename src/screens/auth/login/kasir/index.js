@@ -18,7 +18,7 @@ function index() {
 
           <View style={{margin: 5,}}>
             <Text>Buat kode akses kasir dari akun owner pada  </Text>
-            <Text style={{fontWeight:"bold"}}>Kelola Toko -> Kode Akses Kasir</Text>
+            <Text style={{fontWeight:"bold"}}>Kelola Toko :: Kode Akses Kasir</Text>
           </View>
         </View>
 

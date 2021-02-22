@@ -4,7 +4,7 @@ import { Button, TextInput } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { ChangeToken } from '../../../../src/redux/action';
+import { ChangeToken } from '../../../../redux/action';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function index() {
@@ -23,9 +23,10 @@ function index() {
       
       axios
       .post("https://mr-trash.herokuapp.com/api/login", input)
-      .then(res => {dispatch(ChangeToken(res.data.token))})
+      // .then(res => {dispatch(ChangeToken(res.data.token))})
       .then(res => {console.log("Respones: ", res)})
       .catch(e => {console.log("Error: ", e)})
+
   }
 
   const navigation = useNavigation();

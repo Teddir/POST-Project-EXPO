@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { SafeAreaView, StyleSheet, Text, View,  } from 'react-native'
 import { HelperText, TextInput, Button, Title } from 'react-native-paper'
 // import { Icon } from 'react-native-vector-icons/SimpleLineIcons';
-import LandingAuthPhone from '../../../images/landing-authPhone';
+import LandingAuthPhone from '../../../../images/landing-authPhone';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
 export default function authPhone() {
     const [id, setId] = useState("");
-    const state = useSelector((state) => state);
     const [phone_number, setPhone_number] = useState("");
 
   const submit = async () => {

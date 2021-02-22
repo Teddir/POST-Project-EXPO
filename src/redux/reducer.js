@@ -1,13 +1,33 @@
-const reducer = (state = {}, action) => {
+import { combineReducers } from 'redux';
+
+const userReducer = (state = {}, action) => {
   switch (action.type) {
-    case "ADD_DATA":
+    case "SET_USER":
       return { ...state, ...action.payload }
-    case "CHAGE/TOKEN":
-      return action.data;
+    case "CHAGE_ID":
+      return {
+        ...state,
+        id: actions.data.id,
+      };
+    case "CLEAR":
+      return null;
     default:
       return state;      
   }
+};
+
+const tokenReducer = (state = '', action) => {
+  switch (action.type) {
+    case "CHANGE":
+      return action.data;
+    case "CLEAR":
+      return null;
+    default:
+      return state;
+  }
 }
 
-
-export default reducer
+export default combineReducers({
+  user: userReducer,
+  token: tokenReducer
+})

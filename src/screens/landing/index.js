@@ -1,7 +1,7 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Button } from 'react-native-paper';
-import LandingImageFirst from '../../images/landing-image-first';
+import LandingImageFirst from '../../../images/landing-image-first';
 import { useNavigation } from '@react-navigation/native';
 
 export default function index() {
@@ -22,7 +22,7 @@ export default function index() {
           style={styles.button}
           labelStyle={{ color: '#000000' }}
           contentStyle={styles.btnSize}
-          onPress={() => {navigation.navigate("Register")}}
+          onPress={() => {navigation.navigate("RegisterNew")}}
           >
             Daftar Akun
           </Button>

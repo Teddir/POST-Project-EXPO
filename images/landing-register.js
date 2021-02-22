@@ -15,9 +15,9 @@ function SvgComponent(props) {
     <Svg
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
-      width={155}
+      width={1144}
       markerMid={12}
-      height={135}
+      height={651.26}
       viewBox="0 0 1144 651.26"
       {...props}
     >

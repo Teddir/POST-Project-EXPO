@@ -8,4 +8,11 @@ const storeToken = async (token) => {
     }
 }
 
-export default storeToken;
+const removeToken = async () => {
+    try {
+      await AsyncStorage.removeItem('token')
+    } catch (error) {
+      console.log(error)
+    }
+}
+export default {storeToken, removeToken};

@@ -3,9 +3,9 @@ import { Text, View, StyleSheet, SafeAreaView,  } from 'react-native';
 import { Button, TextInput, HelperText, Title } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import LandingRegister from '../../../images/landing-register';
+import LandingRegister from '../../../../images/landing-register';
 import axios from 'axios';
-import { useSnackbar } from '../../../components/SnackbarProvider';
+import { useSnackbar } from '../../../../components/SnackbarProvider';
 import { useSelector, useDispatch } from 'react-redux';
 
 function index() {
@@ -22,49 +22,63 @@ function index() {
   const [disable, setDisable] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  // const validate = async () => {
-  //   let newErrros = {}
-
-  //   if (!data.name) {
-  //     newErrros.name = "Nama bisnis wajib diisi"; 
-  //   } else if (data.name.length < 5) {
-  //     newErrros.email = "Nama bisnis minimal 5 karakter";
-  //   } 
-    
-  //   if (!data.email) {
-  //     newErrros.email = "Email wajib diisi";
-  //   }  
-    
-  //   if (!data.password) {
-  //     newErrros.password = "Password wajib diisi";
-  //   } else if (data.password.length > 8) {
-  //     newErrros.email = "Password minimal 8 karakter";
-  //   } 
-    
-  //   if (!data.password_confirmation) {
-  //     newErrros.password_confirmation = "Password confirmation wajib diisi";
-  //   } else if (!data.password_confirmation !== data.password) {
-  //     newErrros.password_confirmation = "Password wajib sama";
-  //   }
-
-  //   return newErrros;
-  // }
-
-
-  // const state = useSelector((state)=> state);
   
+
+
+  const kamu = useSelector((state)=> state);
   const action = useDispatch();
+
+
+  const validate = async () => {
+    let newErrros = {}
+
+    if (!kamu.name) {
+      newErrros.name = "Nama bisnis wajib diisi"; 
+    } else if (kamu.name.length < 5) {
+      newErrros.email = "Nama bisnis minimal 5 karakter";
+    } 
+    
+    if (!kamu.email) {
+      newErrros.email = "Email wajib diisi";
+    }  
+    
+    if (!kamu.password) {
+      newErrros.password = "Password wajib diisi";
+    } else if (kamu.password.length > 8) {
+      newErrros.email = "Password minimal 8 karakter";
+    } 
+    
+    if (!kamu.password_confirmation) {
+      newErrros.password_confirmation = "Password confirmation wajib diisi";
+    } else if (!kamu.password_confirmation !== kamu.password) {
+      newErrros.password_confirmation = "Password wajib sama";
+    }
+
+    return newErrros;
+  }
+
   const submit = async () => {
-      action({ type:"ADD_DATA", payload:{
-        name, 
-        email, 
-        password,
-        role:'Nasabah',
-        password_confirmation,
-      }})
+    // setSubmitting(true);
+    // const findError = await validate();
 
-      navigation.navigate("AuthPhone");
-
+    // if (Object.values(findError).some()(message => message !== "")) {
+    //     setErrors(findError);
+    //     // setSubmitting(false);
+    // } else {
+      try {
+        action({ type:"ADD_DATA", payload:{
+          name, 
+          email, 
+          password,
+          role:'Nasabah',
+          password_confirmation,
+        }})
+        navigation.navigate("AuthPhone");
+      } catch (error) {
+        // setSubmitting(false);
+        setErrors(errors => ({ ...errors, payload: errors.message }))
+      }
+    // }
 
   }
 
@@ -124,10 +138,11 @@ function index() {
               mode="outlined"
               textAlign="center"
               value={name}
-              // error={validate}
+              // error={errors ? true : false}
+              // disabled={submitting}
               onChangeText={ (value) => {setName(value)}}
               />
-               <HelperText>{"Contoh : Wadidaw Club"}</HelperText>
+              <HelperText>{"Contoh : Wadidaw Club"}</HelperText>
 
               <TextInput
               left={<TextInput.Icon style={{ marginRight: 10, }} size={20} name="email" color="#00003050" />}
